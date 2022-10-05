@@ -27,7 +27,11 @@ const test = (str) => {
       }
       while (str[i + 1] === str[i]) i++;
    }
-   console.log(array);
+   console.log( array );
+   for (let index = 0; index < 70000; index++) {
+      const element = index;
+      const elements = index + 1;
+   }
    return array;
 };
 test([-1, 0, 1, 2, -1, -4, -2, -3, 3, 0, 4]);
