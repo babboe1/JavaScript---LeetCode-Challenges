@@ -1,44 +1,35 @@
 const test = (nums, target) => {
+   if (nums.length < 4) return [];
    nums.sort((a, b) => a - b);
-   let result = 100000;
-   for (let i = 0; i < nums.length; i++) {
-      let left = i + 1;
-      let right = nums.length - 1;
-      let sum = 0;
-      while (left < right) {
-         sum = nums[i] + nums[left] + nums[right];
-         if (sum === target) {
-            console.log(sum);
-            return sum;
-         } else if (sum > target) {
-            right--;
-         } else {
-            left++;
+   const result = [];
+
+   for (let i = 0; i < nums.length - 3; i++) {
+      for (let j = i + 1; j < nums.length - 2; j++) {
+         let low = j + 1;
+         let high = nums.length - 1;
+
+         while (low < high) {
+            const sum = nums[i] + nums[j] + nums[low] + nums[high];
+            if (sum === target) {
+               result.push([nums[i], nums[j], nums[low], nums[high]]);
+               while (nums[low] === nums[low + 1]) low++;
+               while (nums[high] === nums[high - 1]) high--;
+               low++;
+               high--;
+            } else if (sum < target) {
+               low++;
+            } else {
+               high--;
+            }
          }
-         if (Math.abs(sum - target) < Math.abs(result - target)) {
-            result = sum;
-         }
+         while (nums[j] === nums[j + 1]) j++;
       }
+      while (nums[i] === nums[i + 1]) i++;
    }
-   console.log(result);
    return result;
 };
-// test([4, 0, 5, -5, 3, 3, 0, -4, -5], -2);
-test(
-   [
-      -13, 592, -501, 770, -952, -675, 322, -829, -246, 657, 608, 485, -112,
-      967, -30, 182, -969, 559, -286, -64, 24, 365, -158, 701, 535, -429, -217,
-      28, 948, -114, -536, -711, 693, 23, -958, -283, -700, -672, 311, 314,
-      -712, -594, -351, 658, 747, 949, 70, 888, 166, 495, 244, -380, -654, 454,
-      -281, -811, -168, -839, -106, 877, -216, 523, -234, -8, 289, -175, 920,
-      -237, -791, -976, -509, -4, -3, 298, -190, 194, -328, 265, 150, 210, 285,
-      -176, -646, -465, -97, -107, 668, 892, 612, -54, -272, -910, 557, -212,
-      -930, -198, 38, -365, -729, -410, 932, 4, -565, -329, -456, 224, 443,
-      -529, -428, -294, 191, 229, 112, -867, -163, -979, 236, -227, -388, -209,
-      984, 188, -549, 970, 951, -119, -146, 801, -554, 564, -769, 334, -819,
-      -356, -724, -219, 527, -405, -27, -759, 722, -774, 758, 394, 146, 517,
-      870, -208, 742, -782, 336, -364, -558, -417, 663, -914, 536, 293, -818,
-      847, -322, 408, 876, -823, 827, 167,
-   ],
-   7175,
-);
+// test([4, 0, 5, -5, 3, 3, 0, -4, -5], 4);
+// test([1, 0, -1, 0, -2, 2], 0);
+// test([2, 2, 2, 2, 2], 8);
+// test([0, 0, 0], 0);
+test([0, 0, 0, 0], 1);
