@@ -1,23 +1,22 @@
-
 const test2 = (string) => {
-   let array = Array.from(string);
    let stack = [];
    let map = {
       '(': ')',
       '[': ']',
       '{': '}',
    };
-   for (let i = 0; i < array.length; i++) {
-      if (array[i] === '(' || array[i] === '[' || array[i] === '{') {
-         stack.push(array[i]);
+   let test = new listNode(1);
+   for (let i = 0; i < string.length; i++) {
+      if (string[i] === '(' || string[i] === '[' || string[i] === '{') {
+         stack.push(string[i]);
       } else {
          let last = stack.pop();
-         if (array[i] !== map[last]) {
+         if (string[i] !== map[last]) {
             console.log(false);
             return false;
          }
       }
-   }  
+   }
    if (stack.length !== 0) {
       console.log(false);
       return false;
@@ -26,6 +25,3 @@ const test2 = (string) => {
    return true;
 };
 test2('{(])');
-
-
-
